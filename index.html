@@ -51,20 +51,22 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="fclass-number" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p>+ -</p>
+                    <p> <span onclick="seatIncreadeDecrease('fclass', true);">+</span> 
+                        <span onclick="seatIncreadeDecrease('fclass', false);">-</span> </p>
                 </div>
             </div>
             
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="eclass-number" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p> <span>+</span> <span>-</span> </p>
+                    <p> <span onclick="seatIncreadeDecrease('eclass', true);">+</span> 
+                        <span onclick="seatIncreadeDecrease('eclass', false);">-</span> </p>
                 </div>
             </div>
             <div class="calculations">
@@ -73,7 +75,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p id="sub-total">$500</p>
                     </div>
                 </div>
 
@@ -82,7 +84,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p id="vat">$50</p>
                     </div>
                 </div>
                 <hr>
@@ -91,7 +93,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p id="total-fare">$550</p>
                     </div>
                 </div>
             </div>
@@ -106,5 +108,63 @@
 
     <!--Thank You-->
 </body>
+<script>
+
+
+    function seatIncreadeDecrease(type, isIncrease){
+        const fclassNumber = document.getElementById(type+"-number").value;
+        const intFclassNumber = parseInt(fclassNumber);
+        if (isIncrease == true) {
+            fclassNumberIncrease = intFclassNumber +1;
+        }
+        if (isIncrease == false && fclassNumberIncrease>0) {
+            fclassNumberIncrease = intFclassNumber -1;
+        }
+        document.getElementById(type+"-number").value = fclassNumberIncrease;
+        fareCalculation(type)
+
+    }
+
+    // function fareCalculation(){
+    //     const fclassSeat = document.getElementById("fclass-number").value;
+    //     const fclassSeatNum = parseInt(fclassSeat);
+    //     const fclassFare = fclassSeatNum *150;
+    //     document.getElementById("sub-total").innerText = fclassFare;
+
+    //     const vat = Math.round(fclassFare * .1);
+    //     document.getElementById("vat").innerText = vat;
+
+    //     const totalFare = fclassFare + vat;
+    //     document.getElementById("total-fare").innerText = totalFare;
+
+    // }
+
+    //making fungtion
+    function fareCalculation(type){
+        const fclassSeat = document.getElementById(type+"-number").value;
+        const fclassSeatNum = parseInt(fclassSeat);
+        // const fclassFare = fclassSeatNum *150;
+        let fare = 0;
+        if (type == 'fclass') {
+            fclassFare = fclassSeatNum * 150;
+        }
+        if (type == 'eclass') {
+            eclassFare = fclassSeatNum * 100;
+        }
+
+        const subTotal = fclassFare + eclassFare;
+
+        document.getElementById("sub-total").innerText = subTotal;
+
+        const vat = Math.round(subTotal * .1);
+        document.getElementById("vat").innerText = vat;
+
+        const totalFare = subTotal + vat;
+        document.getElementById("total-fare").innerText = totalFare;
+
+    }
+
+
+</script>
 
 </html>
