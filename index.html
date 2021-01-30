@@ -29,6 +29,7 @@
     <!--Booking Section-->
 
     <main class="main-content container">
+        <section>
         <div id="booking-form-id" class="booking-form">
             <h3>Booking Flights</h3>
             <div class="input-group">
@@ -112,8 +113,8 @@
         </section>
 
         <section id="thank-you" class="booking-form">
-            <h1>Thank you for booking us</h1>
-            <img src="images/aroplane.jpg" alt="" srcset="">
+            <h1>Please Pay From The Bellow Options</h1>
+            <img src="images/payus.png" alt="" srcset="">
         </section>
 
 
@@ -121,67 +122,59 @@
 </body>
 <script>
 
+    //fclass = first class
+    // eclass = economy calass
 
+//total seat increase decrease function
     function seatIncreadeDecrease(type, isIncrease) {
-        const fclassNumber = document.getElementById(type + "-number").value;
-        const intFclassNumber = parseInt(fclassNumber);
-        let fclassNumberIncrease = intFclassNumber;
+        const numberOfTickets = numberOfSeat(type);
+        let numberIncrease = numberOfTickets;
         if (isIncrease == true) {
-            fclassNumberIncrease = intFclassNumber + 1;
+            numberIncrease = numberOfTickets + 1;
 
         }
-        if (isIncrease == false && fclassNumberIncrease > 0) {
-            fclassNumberIncrease = intFclassNumber - 1;
+        if (isIncrease == false && numberIncrease > 0) {
+            numberIncrease = numberOfTickets - 1;
         }
-        document.getElementById(type + "-number").value = fclassNumberIncrease;
-        fareCalculation(type)
+        document.getElementById(type + "-number").value = numberIncrease;
+        fareCalculation()
 
     }
 
-    // function fareCalculation(){
-    //     const fclassSeat = document.getElementById("fclass-number").value;
-    //     const fclassSeatNum = parseInt(fclassSeat);
-    //     const fclassFare = fclassSeatNum *150;
-    //     document.getElementById("sub-total").innerText = fclassFare;
 
-    //     const vat = Math.round(fclassFare * .1);
-    //     document.getElementById("vat").innerText = vat;
 
-    //     const totalFare = fclassFare + vat;
-    //     document.getElementById("total-fare").innerText = totalFare;
+    // total fare calculation function
+    function fareCalculation() {
+     
+        const fClassTicketNumber = numberOfSeat('fclass');
+        const eClassTicketNumber = numberOfSeat('eclass');
 
-    // }
-
-    //making fungtion
-    function fareCalculation(type) {
-        const totalSeat = document.getElementById(type + "-number");
-        const totalSeatNum = parseInt(totalSeat.value);
-        // const fclassFare = fclassSeatNum *150;
-        //let fare = 0;
-        
-        if (type == 'fclass') {
-            fclassFare = totalSeatNum * 150;
-        }
-        if (type == 'eclass') {
-            eclassFare = totalSeatNum * 100;
-        }
-
-        let subTotal = fclassFare + eclassFare;
-
+        const subTotal = fClassTicketNumber * 150 + eClassTicketNumber * 100;
         document.getElementById("sub-total").innerText = subTotal;
 
-        let vat = Math.round(subTotal * .1);
+        const vat = Math.round(subTotal * .1);
         document.getElementById("vat").innerText = vat;
 
-        let totalFare = subTotal + vat;
+        const totalFare = subTotal + vat;
         document.getElementById("total-fare").innerText = totalFare;
 
     }
 
+// identifying class type function
+
+    function numberOfSeat(type){
+        const totalSeat = document.getElementById(type+'-number');
+        const totalSeatNum = parseInt(totalSeat.value);
+        return totalSeatNum;
+    }
+
+// After Book now button click handler
     document.getElementById("order-now-btn").addEventListener("click", function () {
         document.getElementById("booking-form-id").style.display = "none";
         document.getElementById("thank-you").style.display = 'block'
     })
+
+
 </script>
 
 </html>
