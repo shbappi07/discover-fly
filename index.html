@@ -27,8 +27,9 @@
     </header>
 
     <!--Booking Section-->
+
     <main class="main-content container">
-        <div class="booking-form">
+        <div id="booking-form-id" class="booking-form">
             <h3>Booking Flights</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -41,7 +42,7 @@
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -54,19 +55,21 @@
                     <input id="fclass-number" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p> <span onclick="seatIncreadeDecrease('fclass', true);">+</span> 
-                        <span onclick="seatIncreadeDecrease('fclass', false);">-</span> </p>
+                    <button onclick="seatIncreadeDecrease('fclass', true);">+</button>
+                    <button onclick="seatIncreadeDecrease('fclass', false);">-</button>
+
                 </div>
             </div>
-            
+
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
                     <input id="eclass-number" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p> <span onclick="seatIncreadeDecrease('eclass', true);">+</span> 
-                        <span onclick="seatIncreadeDecrease('eclass', false);">-</span> </p>
+                    <button onclick="seatIncreadeDecrease('eclass', true);">+</button>
+                    <button onclick="seatIncreadeDecrease('eclass', false);">-</button>
+
                 </div>
             </div>
             <div class="calculations">
@@ -97,30 +100,40 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="order-now-btn" class="btn-style">Book Now</button>
         </div>
 
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise
+                voluptatibus quam</p>
         </div>
-    </section>
+        </section>
 
-    <!--Thank You-->
+        <section id="thank-you" class="booking-form">
+            <h1>Thank you for booking us</h1>
+            <img src="images/aroplane.jpg" alt="" srcset="">
+        </section>
+
+
+        <!--Thank You-->
 </body>
 <script>
 
 
-    function seatIncreadeDecrease(type, isIncrease){
-        const fclassNumber = document.getElementById(type+"-number").value;
+    function seatIncreadeDecrease(type, isIncrease) {
+        const fclassNumber = document.getElementById(type + "-number").value;
         const intFclassNumber = parseInt(fclassNumber);
+        let fclassNumberIncrease = intFclassNumber;
         if (isIncrease == true) {
-            fclassNumberIncrease = intFclassNumber +1;
+            fclassNumberIncrease = intFclassNumber + 1;
+
         }
-        if (isIncrease == false && fclassNumberIncrease>0) {
-            fclassNumberIncrease = intFclassNumber -1;
+        if (isIncrease == false && fclassNumberIncrease > 0) {
+            fclassNumberIncrease = intFclassNumber - 1;
         }
-        document.getElementById(type+"-number").value = fclassNumberIncrease;
+        document.getElementById(type + "-number").value = fclassNumberIncrease;
         fareCalculation(type)
 
     }
@@ -140,31 +153,35 @@
     // }
 
     //making fungtion
-    function fareCalculation(type){
-        const fclassSeat = document.getElementById(type+"-number").value;
-        const fclassSeatNum = parseInt(fclassSeat);
+    function fareCalculation(type) {
+        const totalSeat = document.getElementById(type + "-number");
+        const totalSeatNum = parseInt(totalSeat.value);
         // const fclassFare = fclassSeatNum *150;
-        let fare = 0;
+        //let fare = 0;
+        
         if (type == 'fclass') {
-            fclassFare = fclassSeatNum * 150;
+            fclassFare = totalSeatNum * 150;
         }
         if (type == 'eclass') {
-            eclassFare = fclassSeatNum * 100;
+            eclassFare = totalSeatNum * 100;
         }
 
-        const subTotal = fclassFare + eclassFare;
+        let subTotal = fclassFare + eclassFare;
 
         document.getElementById("sub-total").innerText = subTotal;
 
-        const vat = Math.round(subTotal * .1);
+        let vat = Math.round(subTotal * .1);
         document.getElementById("vat").innerText = vat;
 
-        const totalFare = subTotal + vat;
+        let totalFare = subTotal + vat;
         document.getElementById("total-fare").innerText = totalFare;
 
     }
 
-
+    document.getElementById("order-now-btn").addEventListener("click", function () {
+        document.getElementById("booking-form-id").style.display = "none";
+        document.getElementById("thank-you").style.display = 'block'
+    })
 </script>
 
 </html>
