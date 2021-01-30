@@ -150,13 +150,13 @@
         const eClassTicketNumber = numberOfSeat('eclass');
 
         const subTotal = fClassTicketNumber * 150 + eClassTicketNumber * 100;
-        document.getElementById("sub-total").innerText = subTotal;
+        document.getElementById("sub-total").innerText = '$'+subTotal;
 
         const vat = Math.round(subTotal * .1);
-        document.getElementById("vat").innerText = vat;
+        document.getElementById("vat").innerText = '$'+vat;
 
         const totalFare = subTotal + vat;
-        document.getElementById("total-fare").innerText = totalFare;
+        document.getElementById("total-fare").innerText = '$'+totalFare;
 
     }
 
